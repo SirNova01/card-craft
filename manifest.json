@@ -1,9 +1,8 @@
 {
-    "name": "Anthropic Memory Copy",
-    "description": "Adds a one-click copy button to the 'memory' card",
+    "name": "Card Craft",
+    "description": "A lightweight Chrome Extension that adds a one-click 📋 Copy button to the memory, bash, and output cards on the feedback portal",
     "version": "1.0",
-    "manifest_version": 3,
-  
+    "manifest_version": 1.0,
     "icons": {       
       "128": "icons/logo.svg"
     },
