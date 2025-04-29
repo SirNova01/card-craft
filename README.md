@@ -14,12 +14,6 @@ It currently just copies content, but I intend to add navigation and other featu
 | **bash**   | Just the shell commands inside each `<pre>` block &nbsp;— skips the “command” label |
 | **output** | The entire output body |
 
-Additional touches:
-
-* 📋 icon is floated to the right of each header.
-* Minimal toast confirmation (`Copied!`) fades out after 1.4 s.
-* Background script receives a message on every click (handy for analytics).
-
 ---
 
 ## Quick Start
