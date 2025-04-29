@@ -1,4 +1,4 @@
-# Turing UI Extension
+# Feedback Portal UI Toolkit
 
 A lightweight Chrome Extension that adds a one-click **📋 Copy** button to the **memory**, **bash**, and **output** cards on the feedback portal.  
 
