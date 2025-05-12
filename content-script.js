@@ -1,8 +1,10 @@
+
 /* toast */
 function showToast(msg = "Copied!") {
-  const t = document.createElement("div");
-  t.className = "copy-toast";
-  t.textContent = msg;
+  const t = Object.assign(document.createElement("div"), {
+    className: "copy-toast",
+    textContent: msg,
+  });
   document.body.appendChild(t);
   requestAnimationFrame(() => (t.style.opacity = "0.92"));
   setTimeout(() => {
@@ -23,36 +25,45 @@ const bodyText   = c => [...c.children].slice(1)
 
 const CARDS = { memory: memoryText, bash: bashText, output: bodyText };
 
-/* inject button */
-function injectButton(h) {
-  if (h.querySelector(".copy-btn")) return;
-  const label = h.childNodes[0]?.textContent.trim().toLowerCase();
+/* helpers */
+const selHeader = ".font-medium.rounded-t.p-2";
+const wanted    = h => CARDS.hasOwnProperty(h.childNodes[0]?.textContent.trim().toLowerCase());
+
+/* inject copy + scroll buttons */
+function injectButtons(h) {
+  if (h.querySelector(".copy-btn")) return;               /* already done */
+  const label = h.childNodes[0].textContent.trim().toLowerCase();
 
   h.style.display = "flex";
   h.style.alignItems = "center";
 
-  const btn = document.createElement("button");
-  btn.className = "copy-btn";
-  btn.title = `Copy ${label} card`;
-  btn.textContent = "📋";
-  btn.style.marginLeft = "auto";
-  btn.onclick = () => {
+  const copy = document.createElement("button");
+  copy.className = "copy-btn";
+  copy.textContent = "📋";
+  copy.title = `Copy ${label}`;
+  copy.style.marginLeft = "auto";
+  copy.onclick = () => {
     const card = h.closest(".flex.flex-col");
     if (!card) return;
     const text = (CARDS[label] || bodyText)(card);
     navigator.clipboard.writeText(text).then(showToast)
       .catch(err => console.error(`Copy ${label} failed`, err));
   };
-  h.appendChild(btn);
+
+  const jump = document.createElement("button");
+  jump.className = "scroll-btn";
+  jump.textContent = "⬇️";
+  jump.title = `Scroll ${label} to end`;
+  jump.onclick = () => {
+    const last = h.closest(".flex.flex-col")?.lastElementChild;
+    last?.scrollIntoView({ behavior: "smooth", block: "end" });
+  };
+
+  h.append(copy, jump);
 }
 
 /* init + observer */
-const sel = ".font-medium.rounded-t.p-2";
-const observe = () =>
-  [...document.querySelectorAll(sel)]
-    .filter(h => CARDS.hasOwnProperty(h.childNodes[0]?.textContent.trim().toLowerCase()))
-    .forEach(injectButton);
+const add = () => [...document.querySelectorAll(selHeader)].filter(wanted).forEach(injectButtons);
 
-observe();
-new MutationObserver(observe).observe(document.body, { childList: true, subtree: true });
-
+add();
+new MutationObserver(add).observe(document.body, { childList: true, subtree: true });

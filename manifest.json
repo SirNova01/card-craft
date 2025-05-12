@@ -1,29 +1,29 @@
 {
-    "name": "Card Craft",
-    "description": "A lightweight Chrome Extension that adds a one-click 📋 Copy button to the memory, bash, and output cards on the feedback portal",
-    "version": "1.0",
-    "manifest_version": 1.0,
-    "icons": {       
-      "128": "icons/logo.svg"
-    },
-    "action": {
-        "default_title": "Anthropic ui Toolkit",
-        "default_icon": {
-        "16":  "icons/logo16.png",
-        "32":  "icons/logo32.png",
-        "48":  "icons/logo48.png",
-        "128": "icons/logo128.png"
-        }
-    },
-    "content_scripts": [
-      {
-        "matches": ["https://feedback.anthropic.com/*"],
-        "js": ["content-script.js"],
-        "css": ["style.css"]
+  "name": "Anthropic UI Toolkit",
+  "description": "Adds simple tools to the feedback portal UI",
+  "version": "1.0",
+  "manifest_version": 3,
+
+  "icons": {       
+    "128": "icons/logo.svg"
+  },
+  "action": {
+      "default_title": "Anthropic ui Toolkit",
+      "default_icon": {
+      "16":  "icons/logo16.png",
+      "32":  "icons/logo32.png",
+      "48":  "icons/logo48.png",
+      "128": "icons/logo128.png"
       }
-    ],
-    "host_permissions": [
-      "https://feedback.anthropic.com/*"
-    ]
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://feedback.anthropic.com/*"],
+      "js": ["content-script.js"],
+      "css": ["style.css"]
+    }
+  ],
+  "host_permissions": [
+    "https://feedback.anthropic.com/*"
+  ]
 }
-  
